@@ -1,0 +1,38 @@
+body {
+    padding: 0px;
+    margin: 0px;
+    text-align: center;
+    color: white;
+    font-size: 20px;
+    /*background-image: url("sprites/background.png");*/
+    font-family: "default";
+    cursor: url('sprites/cursor.png'), auto;
+  }
+  
+  @font-face {
+    font-family: "default";
+    src: url("sprites/default-font.ttf");
+  }
+  
+  canvas {
+    z-index: -1;
+    position: absolute;
+    display: inline-block;
+    left: 0px;
+    right: 0px; 
+    top: 0px; 
+    bottom: 0px;
+  }
+
+button {
+  font-family: "default";
+  cursor: url('sprites/cursor.png'), pointer;
+}
+
+#main-menu h3{
+        color: red;
+      }
+
+#main-menu h4{
+        color: rgb(195, 255, 0);
+      }
