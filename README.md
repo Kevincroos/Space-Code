@@ -1,13 +1,21 @@
 # Space-Code
 
-## A game about the space made with pure Javascript.
+> A game about the space made with pure Javascript.
 
-## Author: Otávio Augustus (Kevincroos)
+>
 
-## Time spend: 3 days;
+- Author: Otávio Augustus (Kevincroos)
 
-## Current version: 1.1;
+>
 
-## Future features: A Shop and a On-line ranking based in a Ratchet WebSocket (probably will be hosted in Heroku).
+- Time spend: 3 days;
 
-### Thats all;
+>
+
+- Current version: 1.1;
+
+>
+
+- Future features: A Shop and a On-line ranking based in a Ratchet WebSocket (probably will be hosted in Heroku).
+
+> Thats all;
