@@ -1,31 +1,47 @@
+// Configure HTML Canvas
+
 let canvas = document.getElementById("canvas");
 let ctx = canvas.getContext("2d");
 
-let image = new Image();
-let impact = new Image();
+// Player
 
 const player = {
   x: window.innerWidth/2,
   y: window.innerHeight/2,
 }
 
+// Configs
+
 let config = {
   ready: false,
   hitBox: false,
   sounds: true,
-  spd:40,
+  spd:20,
   astDelay: 200,
   bulDelay: 100,
 }
 
+// GameObjects
+
 let bullets = [];
 let asteroids = [];
-
+let keyState = {};
 let score = 0;
+
+// Create Game images
+
+let image = new Image();
+let impact = new Image();
+
 let background;
 let playerSprite;
 let laserSprite;
 //let btnSprite;
+
+window.addEventListener('keydown', (e) => { keyState[e.keyCode || e.which] = true;}, true);
+window.addEventListener('keyup', (e) => { keyState[e.keyCode || e.which] = false;}, true);
+
+// Set Game images and menus
 
 function ready() 
 {
@@ -86,6 +102,8 @@ function ready()
 
 }
 
+// Update Game
+
 function loop() {
   resizeCanvas();
   drawPlayer();
@@ -93,14 +111,19 @@ function loop() {
   drawAsteroid();
   asteroid();
   explosion();
+  move();
   document.getElementById('score').innerHTML = "Score: "+score;
   window.requestAnimationFrame(loop);
 }
+
+// Update Canvas Size
 
 function resizeCanvas() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 }
+
+// Update Player
 
 function drawPlayer() {
   if(config.ready == true) {
@@ -113,40 +136,59 @@ function drawPlayer() {
   }
 }
 
-function move() {
-  window.addEventListener('keydown', (e) => {
-    if(e.code === "ArrowLeft") {
+// Move Player
+
+function move()
+{
+
+if (keyState[37] || keyState[65])
+{
+
       if(player.x > 32) {
       player.x-=config.spd;
       }
-    }
-    else if(e.code === "ArrowRight") {
+
+}
+
+else if (keyState[39] || keyState[68])
+{
+
       if (player.x < canvas.width-120) {
       player.x+=config.spd;
     }
-  }
-      if(e.code === "ArrowUp") {
+
+}
+
+if (keyState[38] || keyState[87])
+{
+
         if (player.y > 50) {
       player.y-=config.spd;
         }
-    }
-    else if(e.code === "ArrowDown") {
+
+}
+
+else if (keyState[40] || keyState[83])
+{
       if (player.y < canvas.height-120) {
       player.y+=config.spd;
     }
-  }
-  }
-   );
 
-  window.addEventListener('keyup', (e) => {
-    if(e.code === "Space") {
+}
+
+if (keyState[32] || keyState[13])
+{
+
       if (config.bulDelay == 0) {
         bullet();
         config.bulDelay = 20;
     }
-  }
-  });
+
 }
+
+}
+
+// Create Bullet
 
 function bullet() {
   if (config.ready == true) {
@@ -163,6 +205,8 @@ function bullet() {
 }
 }
 
+// Render Bullet
+
 function drawBullet() {
   if (config.bulDelay > 0) {
     config.bulDelay -= 1;
@@ -177,6 +221,8 @@ function drawBullet() {
         }
   });
 }
+
+// The Great Collision Mechanic
 
 function explosion() {
   for (let e1 = 0; e1 < bullets.length; e1++) {
@@ -199,6 +245,8 @@ function explosion() {
   }
 }
 
+// Create Asteroid
+
 function asteroid() {
 if (config.astDelay > 0) {
     config.astDelay -= 1;
@@ -216,6 +264,8 @@ if (config.astDelay === 0 && config.ready == true) {
     config.astDelay = Math.floor(Math.random()*50);
   }
 }
+
+// Render Asteroid
 
 function drawAsteroid() {
   asteroids.forEach(b => {
@@ -242,6 +292,8 @@ function drawAsteroid() {
         }
   });
 }
+
+// Stop Game
 
 function lose() {
   if (config.sounds == true) {
@@ -280,6 +332,8 @@ function lose() {
   document.body.appendChild(thanks);
   document.body.appendChild(button);
 }
+
+// Create Options Menu
 
 function options() 
 {
